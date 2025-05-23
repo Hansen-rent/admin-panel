@@ -1,0 +1,20 @@
+backend:
+  name: test-repo
+  repo: your/repo-name # заменишь позже, если нужно
+  branch: main
+
+media_folder: 'public/uploads'
+public_folder: '/uploads'
+
+media_library:
+  name: ''
+
+collections:
+  - name: 'pages'
+    label: 'Сторінки'
+    folder: 'content/pages'
+    create: true
+    slug: '{{slug}}'
+    fields:
+      - { label: 'Заголовок', name: 'title', widget: 'string' }
+      - { label: 'Контент', name: 'body', widget: 'markdown' }
