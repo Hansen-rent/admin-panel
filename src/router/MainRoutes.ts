@@ -12,6 +12,11 @@ const MainRoutes = {
       component: () => import('@/views/dashboard/DefaultDashboard.vue')
     },
     {
+      name: 'AdminCMS',
+      path: '/cms',
+      component: () => import('@/views/AdminCMSPage.vue')
+    },
+    {
       name: 'Dashboard',
       path: '/dashboard',
       component: () => import('@/views/dashboard/DefaultDashboard.vue')

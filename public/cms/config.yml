@@ -9,12 +9,840 @@ public_folder: '/uploads'
 media_library:
   name: ''
 
+__link-label: &linkLabel
+  name: label
+  label: Label
+  widget: string
+  required: false
+__link-target-blank: &linkTargetBlank
+  name: targetBlank
+  label: Open In New Tab
+  widget: boolean
+  required: false
+  default: false
+__link-url: &linkUrl
+  name: url
+  label: Url
+  widget: string
+  required: false
+  hint: External link must start with https
+
+__icon-options:
+  &iconOptions [
+    'cherry',
+    'sport',
+    'slots',
+    'live-casino',
+    'table-games',
+    'turbo-games',
+    'sport-book',
+    'tfs-token',
+    'bonuses',
+    'live-support',
+    'vip',
+    'tournament',
+    'lottery',
+    'quest',
+    'shop',
+    'heart',
+    'history',
+    'wallet',
+    'bonus',
+    'user',
+    'log-out',
+    'speed',
+    'gamepad',
+    'security',
+    'age',
+    'hot',
+    'new',
+    'mail',
+    'clover',
+    'percent',
+    'cash',
+    'cashback',
+    'copy',
+    'limits-cross',
+    'documents',
+    'notification',
+    'wallet',
+    'arrows-spin-circle',
+    'cash-solid',
+    'all-application',
+    'star-bold',
+    'skip-next',
+    'reload-bonuses',
+    'welcome-pack'
+  ]
+__social-connections: &socialConnections ['google-oauth2', 'facebook', 'twitter', 'apple', 'yahoo', 'discord', 'twitch', 'line', 'snapchat']
+__sportsbook-disciplines:
+  &sportsbookDisciplines [
+    'american-football',
+    'aov',
+    'apex',
+    'artifact',
+    'australian-football',
+    'australian-football',
+    'badminton',
+    'baseball',
+    'basketball',
+    'basketball-bot',
+    'beach-volleyball',
+    'biathlon',
+    'bowls',
+    'boxing',
+    'cod',
+    'cricket',
+    'cs',
+    'cycling',
+    'darts',
+    'dota2',
+    'e-mma',
+    'ebasketball',
+    'ecricket',
+    'efighting-bots',
+    'efootball',
+    'ehockey',
+    'entertainment',
+    'etennis',
+    'f1-car',
+    'football',
+    'football-bot',
+    'formula1',
+    'futsal',
+    'greyhound',
+    'handball',
+    'harness',
+    'heartstone',
+    'hok',
+    'hots',
+    'ice-hockey',
+    'kabaddi',
+    'legends',
+    'lol',
+    'mma',
+    'motorsport',
+    'ow',
+    'politics',
+    'pubg',
+    'rainbow6',
+    'rocket-league',
+    'rocket-league-bot',
+    'rugby',
+    'skiing-race',
+    'snooker',
+    'starcraft2',
+    'table-tennis',
+    'table-tennis-bot',
+    'tennis',
+    'tennis-bot',
+    'valorant',
+    'volleyball',
+    'warcraft3',
+    'water-polo',
+    'cash',
+    'cross',
+    'percent',
+    'stars'
+  ]
+
+__link-variable: &linkArray
+  - *linkLabel
+  - *linkUrl
+  - *linkTargetBlank
+__project-icon: &projectIcon
+  name: icon
+  label: Icon
+  widget: select
+  required: false
+  options: *iconOptions
+__dynamic-page-url: &dynamicPageIdentity
+  name: pageIdentity
+  label: Page Identity (setting)
+  hint: Page Identity is the part of page URL. It can include lowercase alphanumeric
+    characters (a-z, 0-9) and hyphens (-). For example - "dynamic-page-1"
+  widget: string
+__social-icons: &socialIcons ['twitter', 'facebook', 'google', 'twitch', 'steam', 'telegram', 'instagram', 'youtube']
+__page-meta: &pageMeta
+  name: pageMeta
+  label: Page Meta
+  widget: object
+  collapsed: true
+  fields:
+    - name: title
+      label: Page Title
+      widget: string
+      required: false
+    - name: description
+      label: Page Description
+      widget: text
+      required: false
+__page-meta-with-seo: &pageMetaWithSeo
+  name: pageMeta
+  label: Page Meta
+  widget: object
+  collapsed: true
+  fields:
+    - name: title
+      label: Page Title
+      widget: string
+      required: false
+    - name: description
+      label: Page Description
+      widget: text
+      required: false
+    - name: image
+      label: Image
+      widget: image
+      required: false
+    - name: seoText
+      label: Page Seo Text
+      widget: object
+      fields:
+        - name: visible
+          label: Visible Text
+          widget: markdown
+          required: false
+        - name: hidden
+          label: Hidden Text
+          widget: markdown
+          required: false
+        - name: button
+          label: More Button Label
+          widget: string
+          required: false
+
 collections:
-  - name: 'pages'
-    label: 'Сторінки'
-    folder: 'content/pages'
-    create: true
-    slug: '{{slug}}'
-    fields:
-      - { label: 'Заголовок', name: 'title', widget: 'string' }
-      - { label: 'Контент', name: 'body', widget: 'markdown' }
+  - name: fieldsSettings-$CMS_IDENTITY-$LOCALE
+    label: Fields Settings
+    extension: json
+    format: json
+    editor:
+      preview: false
+    files:
+      - label: Validation Messages
+        name: validationMessages
+        file: content/$LOCALE/fields-settings/validation-messages.json
+        fields:
+          - name: countryCode
+            label: Country Code
+            widget: string
+          - name: languageCode
+            label: Language Code
+            widget: string
+          - name: minAge
+            label: Min Age
+            widget: string
+          - name: maxAge
+            label: Max Age
+            widget: string
+          - name: phone
+            label: Phone
+            widget: string
+          - name: lowercase
+            label: Lowercase
+            widget: string
+          - name: uppercase
+            label: Uppercase
+            widget: string
+          - name: accepted
+            label: Accepted
+            widget: string
+          - name: declined
+            label: Declined
+            widget: string
+          - name: before
+            label: Before (date)
+            widget: string
+          - name: before_or_equal
+            label: Before or Equal (date)
+            widget: string
+          - name: after
+            label: After (date)
+            widget: string
+          - name: after_or_equal
+            label: After or Equal (date)
+            widget: string
+          - name: alpha
+            label: Alpha
+            widget: string
+          - name: alpha_dash
+            label: Alpha Dash
+            widget: string
+          - name: alpha_num
+            label: Alpha Num
+            widget: string
+          - name: array
+            label: Array
+            widget: string
+          - name: boolean
+            label: Boolean
+            widget: string
+          - name: confirmed
+            label: Confirmed
+            widget: string
+          - name: date
+            label: Date
+            widget: string
+          - name: date_equals
+            label: Date Equals
+            widget: string
+          - name: different
+            label: Different
+            widget: string
+          - name: digits
+            label: Digits
+            widget: string
+          - name: digits_between
+            label: Digits Between
+            widget: string
+          - name: email
+            label: Email
+            widget: string
+          - name: ip
+            label: IP
+            widget: string
+          - name: mac_address
+            label: Mac Address
+            widget: string
+          - name: max
+            label: Max
+            widget: string
+          - name: min
+            label: Min
+            widget: string
+          - name: numeric
+            label: Numeric
+            widget: string
+          - name: regex
+            label: Regex
+            widget: string
+          - name: not_regex
+            label: Not Regex
+            widget: string
+          - name: required
+            label: Required
+            widget: string
+          - name: required_if
+            label: Required If
+            widget: string
+          - name: string
+            label: String
+            widget: string
+          - name: url
+            label: Url
+            widget: string
+          - name: login
+            label: Login (invalid data error)
+            widget: string
+          - name: integer
+            label: Integer
+            widget: string
+          - name: cpf_number
+            label: CPF Number
+            widget: string
+          - name: card_number
+            label: Credit Card Number
+            widget: string
+          - name: card_number_only_az
+            label: Credit Card Only From AZ
+            widget: string
+      - label: Fields Controls
+        name: fieldsControls
+        __fields-array: &fieldsArray
+          - name: label
+            label: Label
+            widget: string
+          - name: placeholder
+            label: Placeholder
+            widget: string
+            required: false
+        file: content/$LOCALE/fields-settings/fields-controls.json
+        fields:
+          - name: password
+            label: Password
+            widget: object
+            fields: *fieldsArray
+          - name: password_confirmation
+            label: Password Confirmation
+            widget: object
+            fields: *fieldsArray
+          - name: currentPassword
+            label: Current Password
+            widget: object
+            fields: *fieldsArray
+          - name: newPassword
+            label: New Password
+            widget: object
+            fields: *fieldsArray
+          - name: repeatNewPassword
+            label: Repeat New Password
+            widget: object
+            fields: *fieldsArray
+          - name: firstName
+            label: First Name
+            widget: object
+            fields: *fieldsArray
+          - name: lastName
+            label: Last Name
+            widget: object
+            fields: *fieldsArray
+          - name: nationality
+            label: Nationality
+            widget: object
+            fields: *fieldsArray
+          - name: nickname
+            label: Nickname
+            widget: object
+            fields: *fieldsArray
+          - name: gender
+            label: Gender
+            widget: object
+            fields:
+              - name: label
+                label: Label
+                widget: string
+              - name: maleLabel
+                label: Male Label
+                widget: string
+              - name: femaleLabel
+                label: Female Label
+                widget: string
+              - name: otherLabel
+                label: Other Label
+                widget: string
+          - name: city
+            label: City
+            widget: object
+            fields: *fieldsArray
+          - name: address
+            label: Address
+            widget: object
+            fields: *fieldsArray
+          - name: additionalAddress
+            label: Additional Address
+            widget: object
+            fields: *fieldsArray
+          - name: postalCode
+            label: Postal Code
+            widget: object
+            fields: *fieldsArray
+          - name: timeZone
+            label: Time Zone
+            widget: object
+            fields: *fieldsArray
+          - name: profession
+            label: Profession
+            widget: object
+            fields: *fieldsArray
+          - name: language
+            label: Language
+            widget: object
+            fields: *fieldsArray
+          - name: bonusCode
+            label: Bonus Code
+            widget: object
+            fields: *fieldsArray
+          - name: securityQuestion
+            label: Security Question
+            widget: object
+            fields: *fieldsArray
+          - name: securityAnswer
+            label: Security Answer
+            widget: object
+            fields: *fieldsArray
+          - name: email
+            label: Email
+            widget: object
+            fields: *fieldsArray
+          - name: country
+            label: Country
+            widget: object
+            fields:
+              - name: label
+                label: Label
+                widget: string
+              - name: placeholder
+                label: Placeholder
+                widget: string
+                required: false
+              - name: emptySearchTitle
+                label: Empty Search Title
+                widget: string
+          - name: currency
+            label: Currency
+            widget: object
+            fields:
+              - name: label
+                label: Label
+                widget: string
+              - name: placeholder
+                label: Placeholder
+                widget: string
+                required: false
+              - name: emptySearchTitle
+                label: Empty Search Title
+                widget: string
+          - name: agreements
+            label: Agreements
+            widget: object
+            fields: *fieldsArray
+          - name: receiveEmailPromo
+            label: Receive Email Promo
+            widget: object
+            fields: *fieldsArray
+          - name: receiveSmsPromo
+            label: Receive Sms Promo
+            widget: object
+            fields: *fieldsArray
+          - name: receiveBonus
+            label: Receive Bonus
+            widget: object
+            fields: *fieldsArray
+          - name: phone
+            label: Phone
+            widget: object
+            fields: *fieldsArray
+          - name: birthdate
+            label: Birthdate
+            widget: object
+            fields:
+              - name: label
+                label: Label
+                widget: string
+              - name: placeholderDay
+                label: Day Placeholder
+                widget: string
+                required: false
+              - name: placeholderMonth
+                label: Month Placeholder
+                widget: string
+                required: false
+              - name: placeholderYear
+                label: Year Placeholder
+                widget: string
+                required: false
+          - name: placeOfBirth
+            label: Place of Birth
+            widget: object
+            fields: *fieldsArray
+          - name: personalIdNumber
+            label: Personal Id Number
+            widget: object
+            fields: *fieldsArray
+          - name: message
+            label: Message
+            widget: object
+            fields: *fieldsArray
+          - name: wallet_id
+            label: Wallet Address
+            widget: object
+            fields: *fieldsArray
+          - name: card_number
+            label: Card Number
+            widget: object
+            fields: *fieldsArray
+          - name: card_holder
+            label: Card Holder
+            widget: object
+            fields: *fieldsArray
+          - name: exp_month
+            label: Expire Month
+            widget: object
+            fields: *fieldsArray
+          - name: exp_year
+            label: Expire Year
+            widget: object
+            fields: *fieldsArray
+          - name: networkSelect
+            label: Network Select
+            widget: object
+            fields:
+              - name: label
+                label: Label
+                widget: string
+              - name: placeholder
+                label: Placeholder
+                widget: string
+              - name: info
+                label: Info
+                widget: markdown
+          - name: age
+            label: Age
+            widget: object
+            fields: *fieldsArray
+  - name: globalComponents-$CMS_IDENTITY-$LOCALE
+    label: Global Components
+    extension: json
+    format: json
+    editor:
+      preview: false
+    files:
+      - label: Slider Component
+        name: slider
+        file: content/$LOCALE/global-components/slider.json
+        fields:
+          - name: slideList
+            label: Slide list
+            widget: list
+            collapsed: true
+            label_singular: slide
+            summary: '{{fields.title}}'
+            fields:
+              - name: slideLink
+                label: Slide Link
+                widget: object
+                fields:
+                  - name: url
+                    label: Url
+                    widget: string
+                    required: false
+                    hint: External link must start with https
+                  - *linkTargetBlank
+              - name: badge
+                label: Slide Badge
+                widget: object
+                fields:
+                  - name: text
+                    label: Text
+                    widget: string
+                    required: false
+                  - name: textColor
+                    label: Text Color
+                    widget: color
+                    allowInput: true
+                    required: false
+                  - name: backgroundColor
+                    label: Background Color
+                    widget: color
+                    allowInput: true
+                    required: false
+                    hint: 'If you want to use a color with transparency, use the format
+                      rgba(R, G, B, A), where A is a number between 0 and 1. For example:
+                      rgba(50, 6, 71, 0.8).'
+              - name: colorLeft
+                label: Color Left
+                widget: color
+                allowInput: true
+              - name: colorRight
+                label: Color Right
+                widget: color
+                allowInput: true
+              - name: title
+                label: Slide Title
+                widget: string
+                pattern: ['^.{0,30}$', 'Must have no more than 30 characters']
+              - name: content
+                label: Slide Content
+                widget: markdown
+                required: false
+                pattern: ['^.{0,62}$', 'Must have no more than 62 characters']
+              - name: button
+                label: Slide Button
+                widget: object
+                fields:
+                  - name: label
+                    label: Label
+                    widget: string
+                    required: false
+                  - name: url
+                    label: Url
+                    widget: string
+                    required: false
+                    hint: External link must start with https
+                  - *linkTargetBlank
+              - name: desktopImage
+                label: Desktop Image
+                widget: image
+                hint: Picture dimensions should be 428px/336px for correct display.
+              - name: mobileImage
+                label: Mobile Image
+                widget: image
+                hint: Picture dimensions should be 214px/168px for correct display.
+              - name: loggedHide
+                label: Hide For Logged User
+                widget: boolean
+                required: false
+                default: false
+              - name: unloggedHide
+                label: Hide For Unlogged User
+                widget: boolean
+                required: false
+                default: false
+              - name: showSegments
+                label: Show For Segments
+                widget: list
+                label_singular: segment
+                summary: '{{fields.segmentId}}'
+                hint: Segment ID must be the same as ID in backoffice
+                required: false
+                fields:
+                  - name: segmentId
+                    label: Segment ID
+                    widget: string
+              - name: showSegmentsLogicalOperator
+                label: Logical Operator For Multiple 'Show For Segments'
+                widget: select
+                options: ['AND', 'OR']
+                default: 'AND'
+              - name: hideSegments
+                label: Hide For Segments
+                widget: list
+                label_singular: segment
+                summary: '{{fields.segmentId}}'
+                hint: Segment ID must be the same as ID in backoffice
+                required: false
+                fields:
+                  - name: segmentId
+                    label: Segment ID
+                    widget: string
+              - name: hideSegmentsLogicalOperator
+                label: Logical Operator For Multiple 'Hide For Segments'
+                widget: select
+                options: ['AND', 'OR']
+                default: 'OR'
+              - name: showFrom
+                label: Show From
+                required: false
+                widget: datetime
+                default: ''
+                hint: Set Date and Time in UTC
+                date_format: 'DD.MM.YYYY'
+                time_format: 'HH:mm'
+                picker_utc: true
+              - name: showTo
+                label: Show To
+                required: false
+                widget: datetime
+                default: ''
+                hint: Set Date and Time in UTC
+                date_format: 'DD.MM.YYYY'
+                time_format: 'HH:mm'
+                picker_utc: true
+      - label: Benefits Component
+        name: benefits
+        file: content/$LOCALE/global-components/benefits.json
+        fields:
+          - name: label
+            label: Block Label
+            widget: string
+          - *projectIcon
+          - name: items
+            label: Benefit Cards
+            widget: list
+            label_singular: card
+            summary: '{{fields.title}}'
+            fields:
+              - name: image
+                label: Image
+                widget: image
+              - name: title
+                label: Title
+                widget: string
+              - name: text
+                label: Description
+                widget: string
+      - label: Promotions Component
+        name: promotions
+        file: content/$LOCALE/global-components/promotions.json
+        fields:
+          - name: label
+            label: Block Label
+            widget: string
+          - *projectIcon
+          - name: items
+            label: Cards
+            widget: list
+            summary: '{{fields.title}}'
+            label_singular: card
+            fields:
+              - name: image
+                label: Image
+                widget: image
+              - name: title
+                label: Title
+                widget: string
+              - name: description
+                label: Description
+                widget: string
+              - name: buttonLabel
+                label: Button Label
+                widget: string
+              - name: link
+                label: Link
+                widget: object
+                fields: *linkArray
+      - label: Categories List
+        name: categories
+        file: content/$LOCALE/global-components/categories.json
+        fields:
+          - name: categoriesList
+            label: Categories List
+            widget: list
+            label_singular: category
+            summary: '{{fields.label}}'
+            fields:
+              - *projectIcon
+              - name: customIcon
+                label: Custom Icon
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: customIconShadow
+                label: Custom Icon Shadow Color
+                widget: color
+                required: false
+                enableAlpha: true
+              - name: identity
+                label: Category Identity
+                widget: string
+                hint: Identity must be the same as backoffice category identity!
+              - name: label
+                label: Category Label
+                widget: string
+      - label: Cards Group Component
+        name: cardsGroup
+        file: content/$LOCALE/global-components/cards-group.json
+        fields:
+          - name: moreButton
+            label: More Button
+            widget: string
+          - name: recommendedSubtitle
+            label: Group Recommended Subtitle
+            widget: string
+          - name: favorites
+            label: Favorites Group
+            widget: object
+            fields:
+              - *projectIcon
+              - name: label
+                label: Group Label
+                widget: string
+          - name: providers
+            label: Providers Group
+            widget: object
+            fields:
+              - *projectIcon
+              - name: label
+                label: Group Label
+                widget: string
+          - name: latestWinners
+            label: Winners Group
+            widget: object
+            fields:
+              - *projectIcon
+              - name: label
+                label: Group Label
+                widget: string
+              - name: display
+                label: Display Latest Winners
+                widget: boolean
+                default: true
+          - name: recentlyPlayed
+            label: Recently Played Group
+            widget: object
+            fields:
+              - *projectIcon
+              - name: label
+                label: Group Label
+                widget: string
