@@ -3,8 +3,6 @@ import {
   QuestionOutlined,
   DashboardOutlined,
   ChromeOutlined,
-  LoginOutlined,
-  ProfileOutlined,
   FontSizeOutlined,
   BgColorsOutlined,
   BarcodeOutlined,
@@ -34,16 +32,10 @@ const sidebarItem: menu[] = [
     icon: DashboardOutlined,
     to: '/dashboard'
   },
-  { header: 'Authentication' },
   {
-    title: 'Login',
-    icon: LoginOutlined,
-    to: '/login1'
-  },
-  {
-    title: 'Register',
-    icon: ProfileOutlined,
-    to: '/register'
+    title: 'CMS',
+    icon: DashboardOutlined,
+    to: '/cms'
   },
   { header: 'Utilities' },
   {

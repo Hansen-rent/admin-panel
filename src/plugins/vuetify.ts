@@ -15,11 +15,11 @@ const light: ThemeDefinition = {
     'high-opacity': 1
   },
   colors: {
-    primary: '#1677ff',
+    primary: '#253572',
     secondary: '#8c8c8c',
-    info: '#13c2c2',
+    info: '#2f539a',
     success: '#52c41a',
-    accent: '#FFAB91',
+    accent: '#253572',
     warning: '#faad14',
     error: '#ff4d4f',
     lightprimary: '#e6f4ff',
