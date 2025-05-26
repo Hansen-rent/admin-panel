@@ -3,8 +3,14 @@
   border: 0px;
   box-shadow: none !important;
   border-right: 1px solid rgba(var(--v-theme-borderLight), 0.8);
+
   .logo {
-    padding-left: 7px;
+    display: flex;
+    justify-content: center;
+
+    a {
+      display: inline-block;
+    }
   }
 }
 /*This is for the Vertical sidebar*/

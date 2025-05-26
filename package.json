@@ -1,8 +1,8 @@
 {
-  "name": "mantis-vuetify-vuejs-free",
-  "version": "1.2.0",
+  "name": "hansen-admin-panel",
+  "version": "1.0.0",
   "private": false,
-  "author": "CodedThemes",
+  "author": "Oleksandr Kropivnyi, kropivnyy@gmail.com",
   "type": "module",
   "scripts": {
     "dev": "vite",
