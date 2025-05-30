@@ -8,6 +8,13 @@
   </head>
   <body>
     <script>
+      // import YAML from 'yaml';
+
+      window.CMS.init();
+      // fetch('https://hansen-fe.netlify.app/cms/config.yml')
+      //   .then((res) => res.text())
+      //   .then((yml) => CMS.init({ config: YAML.parse(yml) }));
+
       if (window.netlifyIdentity) {
         window.netlifyIdentity.on('init', (user) => {
           if (!user) {
