@@ -1,11 +1,12 @@
-# backend:
-#   name: github
-#   repo: Hansen-rent/hansen-fe
-#   branch: main
-
 backend:
-  name: git-gateway
+  name: github
+  repo: Hansen-rent/hansen-fe
   branch: main
+  auth_scope: repo
+
+# backend:
+#   name: git-gateway
+#   branch: main
 
 media_folder: 'public/uploads'
 public_folder: '/uploads'
