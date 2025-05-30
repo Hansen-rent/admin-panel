@@ -1,6 +1,10 @@
+# backend:
+#   name: github
+#   repo: Hansen-rent/hansen-fe
+#   branch: main
+
 backend:
-  name: github
-  repo: Hansen-rent/hansen-fe
+  name: git-gateway
   branch: main
 
 media_folder: 'public/uploads'
