@@ -24,6 +24,7 @@
     "@typescript-eslint/parser": "^8.18.2",
     "ant-design-vue": "4.2.6",
     "apexcharts": "4.3.0",
+    "decap-cms-app": "^3.6.3",
     "pinia": "2.3.0",
     "slate-hyperscript": "^0.100.0",
     "vee-validate": "4.15.0",
@@ -51,6 +52,7 @@
     "typescript": "5.7.2",
     "typescript-eslint": "^8.18.2",
     "vite": "6.0.6",
+    "vite-plugin-node-polyfills": "^0.23.0",
     "vue-cli-plugin-vuetify": "2.5.8",
     "vue-tsc": "2.2.0"
   }

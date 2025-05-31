@@ -3,17 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <title>Decap CMS</title>
-    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js" async></script>
+    <!-- <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js" async></script> -->
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   </head>
   <body>
-    <script>
-      // import YAML from 'yaml';
+    <!-- <script>
+      import YAML from 'yaml';
 
-      window.CMS.init();
-      // fetch('https://hansen-fe.netlify.app/cms/config.yml')
-      //   .then((res) => res.text())
-      //   .then((yml) => CMS.init({ config: YAML.parse(yml) }));
+      // window.CMS.init();
+      fetch('https://hansen-fe.netlify.app/cms/config.yml')
+        .then((res) => res.text())
+        .then((yml) => CMS.init({ config: YAML.parse(yml) }));
 
       if (window.netlifyIdentity) {
         window.netlifyIdentity.on('init', (user) => {
@@ -24,6 +24,6 @@
           }
         });
       }
-    </script>
+    </script> -->
   </body>
 </html>
