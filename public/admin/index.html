@@ -3,27 +3,43 @@
   <head>
     <meta charset="UTF-8" />
     <title>Decap CMS</title>
-    <!-- <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js" async></script> -->
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
+    <!-- YAML парсер -->
+    <script src="https://cdn.jsdelivr.net/npm/js-yaml@4/dist/js-yaml.min.js" defer></script>
+
+    <!-- Netlify Identity -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js" defer></script>
+
+    <!-- Decap CMS (ОБЯЗАТЕЛЬНО defer!) -->
+    <!-- <script src="https://unpkg.com/decap-cms-app@^3.0.0/dist/standalone.js" defer></script> -->
+    <!-- <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js" defer></script> -->
   </head>
   <body>
-    <!-- <script>
-      import YAML from 'yaml';
+    <!-- Обязательный контейнер -->
+    <div id="nc-root"></div>
 
-      // window.CMS.init();
-      fetch('https://hansen-fe.netlify.app/cms/config.yml')
-        .then((res) => res.text())
-        .then((yml) => CMS.init({ config: YAML.parse(yml) }));
+    <!-- Ждём загрузку всех скриптов -->
+    <script>
+      window.addEventListener('DOMContentLoaded', () => {
+        const waitForCMS = () => {
+          if (window.CMS && typeof window.CMS.init === 'function') {
+            console.log('✅ CMS готов, инициализируем...');
 
-      if (window.netlifyIdentity) {
-        window.netlifyIdentity.on('init', (user) => {
-          if (!user) {
-            window.netlifyIdentity.on('login', () => {
-              document.location.href = '/cms';
-            });
+            fetch('https://hansen-fe.netlify.app/cms/config.yml')
+              .then((res) => res.text())
+              .then((yml) => {
+                const parsed = jsyaml.load(yml);
+                window.CMS.init({ config: parsed });
+                console.log(window.CMS);
+              });
+          } else {
+            console.log('⏳ Ждём CMS...');
+            setTimeout(waitForCMS, 100);
           }
-        });
-      }
-    </script> -->
+        };
+
+        waitForCMS();
+      });
+    </script>
   </body>
 </html>
