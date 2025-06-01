@@ -11,26 +11,33 @@
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js" defer></script>
 
     <!-- Decap CMS (ОБЯЗАТЕЛЬНО defer!) -->
-    <!-- <script src="https://unpkg.com/decap-cms-app@^3.0.0/dist/standalone.js" defer></script> -->
     <!-- <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js" defer></script> -->
+    <!-- <script src="https://unpkg.com/decap-cms@3.5.0/dist/decap-cms.js" defer></script> -->
   </head>
   <body>
     <!-- Обязательный контейнер -->
     <div id="nc-root"></div>
 
+    <script src="https://unpkg.com/react@^18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@^18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/decap-cms-app/dist/decap-cms-app.js"></script>
+
     <!-- Ждём загрузку всех скриптов -->
     <script>
       window.addEventListener('DOMContentLoaded', () => {
         const waitForCMS = () => {
-          if (window.CMS && typeof window.CMS.init === 'function') {
+          if (window.DecapCmsApp && typeof window.DecapCmsApp.init === 'function') {
             console.log('✅ CMS готов, инициализируем...');
 
-            fetch('https://hansen-fe.netlify.app/cms/config.yml')
+            // fetch('http://localhost:5173/admin/content-config.yml')
+            fetch('https://hansen-fe.netlify.app/cms/content-config.yml')
               .then((res) => res.text())
               .then((yml) => {
                 const parsed = jsyaml.load(yml);
-                window.CMS.init({ config: parsed });
-                console.log(window.CMS);
+                console.log(parsed);
+                window.DecapCmsApp.init({ config: parsed });
+                // window.CMS.init({ config: parsed });
+                console.log(window.DecapCmsApp);
               });
           } else {
             console.log('⏳ Ждём CMS...');
