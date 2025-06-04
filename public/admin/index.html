@@ -6,13 +6,6 @@
 
     <!-- YAML парсер -->
     <script src="https://cdn.jsdelivr.net/npm/js-yaml@4/dist/js-yaml.min.js" defer></script>
-
-    <!-- Netlify Identity -->
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js" defer></script>
-
-    <!-- Decap CMS (ОБЯЗАТЕЛЬНО defer!) -->
-    <!-- <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js" defer></script> -->
-    <!-- <script src="https://unpkg.com/decap-cms@3.5.0/dist/decap-cms.js" defer></script> -->
   </head>
   <body>
     <!-- Обязательный контейнер -->
@@ -22,7 +15,23 @@
     <script src="https://unpkg.com/react-dom@^18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/decap-cms-app/dist/decap-cms-app.js"></script>
 
-    <!-- Ждём загрузку всех скриптов -->
+    <!-- ВСТАВЛЯЕМ перехват fetch'а -->
+    <script>
+      const token = localStorage.getItem('token');
+
+      if (token) {
+        const originalFetch = window.fetch;
+        window.fetch = function (url, options = {}) {
+          options.headers = {
+            ...(options.headers || {}),
+            Authorization: `Bearer ${token}`
+          };
+          return originalFetch(url, options);
+        };
+      }
+    </script>
+
+    <!-- Инициализация CMS -->
     <script>
       window.addEventListener('DOMContentLoaded', () => {
         const waitForCMS = () => {
@@ -34,10 +43,7 @@
               .then((res) => res.text())
               .then((yml) => {
                 const parsed = jsyaml.load(yml);
-                console.log(parsed);
                 window.DecapCmsApp.init({ config: parsed });
-                // window.CMS.init({ config: parsed });
-                console.log(window.DecapCmsApp);
               });
           } else {
             console.log('⏳ Ждём CMS...');

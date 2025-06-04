@@ -1,50 +1,9 @@
-<script setup lang="ts">
-import { ref } from 'vue';
-// icons
-import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons-vue';
-import { useAuthStore } from '@/stores/auth';
-import { Form } from 'vee-validate';
-
-const checkbox = ref(false);
-const valid = ref(false);
-const show1 = ref(false);
-const password = ref('admin123');
-const username = ref('info@codedthemes.com');
-// Password validation rules
-const passwordRules = ref([
-  (v: string) => !!v || 'Password is required',
-  (v: string) => v === v.trim() || 'Password cannot start or end with spaces',
-  (v: string) => v.length <= 10 || 'Password must be less than 10 characters'
-]);
-// Email validation rules
-const emailRules = ref([
-  (v: string) => !!v.trim() || 'E-mail is required',
-  (v: string) => {
-    const trimmedEmail = v.trim();
-    return !/\s/.test(trimmedEmail) || 'E-mail must not contain spaces';
-  },
-  (v: string) => /.+@.+\..+/.test(v.trim()) || 'E-mail must be valid'
-]);
-
-/* eslint-disable @typescript-eslint/no-explicit-any */
-function validate(values: any, { setErrors }: any) {
-  // Trim the username before validation
-  const trimmedUsername = username.value.trim();
-
-  // Update the username with trimmed value
-  username.value = trimmedUsername;
-
-  const authStore = useAuthStore();
-  return authStore.login(trimmedUsername, password.value).catch((error) => setErrors({ apiError: error }));
-}
-</script>
-
 <template>
   <div class="d-flex justify-space-between align-center">
     <h3 class="text-h3 text-center mb-0">Login</h3>
     <router-link to="/register" class="text-primary text-decoration-none">Don't Have an account?</router-link>
   </div>
-  <Form @submit="validate" class="mt-7 loginForm" v-slot="{ errors, isSubmitting }">
+  <Form @submit="onSubmit" class="mt-7 loginForm" v-slot="{ errors, isSubmitting }">
     <div class="mb-6">
       <v-label>Email Address</v-label>
       <v-text-field
@@ -111,3 +70,50 @@ function validate(values: any, { setErrors }: any) {
   }
 }
 </style>
+
+<script setup lang="ts">
+import { ref } from 'vue';
+// icons
+import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons-vue';
+import { useAuthStore } from '@/stores/auth';
+import { Form } from 'vee-validate';
+import { router } from '@/router';
+
+const checkbox = ref(false);
+const valid = ref(false);
+const show1 = ref(false);
+const password = ref('admin123');
+const username = ref('info@codedthemes.com');
+// Password validation rules
+const passwordRules = ref([
+  (v: string) => !!v || 'Password is required',
+  (v: string) => v === v.trim() || 'Password cannot start or end with spaces',
+  (v: string) => v.length <= 10 || 'Password must be less than 10 characters'
+]);
+// Email validation rules
+const emailRules = ref([
+  (v: string) => !!v.trim() || 'E-mail is required',
+  (v: string) => {
+    const trimmedEmail = v.trim();
+    return !/\s/.test(trimmedEmail) || 'E-mail must not contain spaces';
+  },
+  (v: string) => /.+@.+\..+/.test(v.trim()) || 'E-mail must be valid'
+]);
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
+const onSubmit = async (values: any, { setErrors }: any) => {
+  try {
+    // Trim the username before validation
+    const trimmedUsername = username.value.trim();
+
+    // Update the username with trimmed value
+    username.value = trimmedUsername;
+
+    const authStore = useAuthStore();
+    await authStore.login(trimmedUsername, password.value);
+    router.push('/dashboard');
+  } catch (error) {
+    setErrors({ apiError: error });
+  }
+};
+</script>
