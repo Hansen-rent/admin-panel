@@ -7,232 +7,24 @@
 # backend:
 #   name: git-gateway
 #   branch: main
-
-media_folder: 'public/images/uploads'
-public_folder: '/images/uploads'
-
-media_library:
-  name: ''
-
-__link-label: &linkLabel
-  name: label
-  label: Label
-  widget: string
-  required: false
-__link-target-blank: &linkTargetBlank
-  name: targetBlank
-  label: Open In New Tab
-  widget: boolean
-  required: false
-  default: false
-__link-url: &linkUrl
-  name: url
-  label: Url
-  widget: string
-  required: false
-  hint: External link must start with https
-
-__icon-options:
-  &iconOptions [
-    'cherry',
-    'sport',
-    'slots',
-    'live-casino',
-    'table-games',
-    'turbo-games',
-    'sport-book',
-    'tfs-token',
-    'bonuses',
-    'live-support',
-    'vip',
-    'tournament',
-    'lottery',
-    'quest',
-    'shop',
-    'heart',
-    'history',
-    'wallet',
-    'bonus',
-    'user',
-    'log-out',
-    'speed',
-    'gamepad',
-    'security',
-    'age',
-    'hot',
-    'new',
-    'mail',
-    'clover',
-    'percent',
-    'cash',
-    'cashback',
-    'copy',
-    'limits-cross',
-    'documents',
-    'notification',
-    'wallet',
-    'arrows-spin-circle',
-    'cash-solid',
-    'all-application',
-    'star-bold',
-    'skip-next',
-    'reload-bonuses',
-    'welcome-pack'
-  ]
-__social-connections: &socialConnections ['google-oauth2', 'facebook', 'twitter', 'apple', 'yahoo', 'discord', 'twitch', 'line', 'snapchat']
-__sportsbook-disciplines:
-  &sportsbookDisciplines [
-    'american-football',
-    'aov',
-    'apex',
-    'artifact',
-    'australian-football',
-    'australian-football',
-    'badminton',
-    'baseball',
-    'basketball',
-    'basketball-bot',
-    'beach-volleyball',
-    'biathlon',
-    'bowls',
-    'boxing',
-    'cod',
-    'cricket',
-    'cs',
-    'cycling',
-    'darts',
-    'dota2',
-    'e-mma',
-    'ebasketball',
-    'ecricket',
-    'efighting-bots',
-    'efootball',
-    'ehockey',
-    'entertainment',
-    'etennis',
-    'f1-car',
-    'football',
-    'football-bot',
-    'formula1',
-    'futsal',
-    'greyhound',
-    'handball',
-    'harness',
-    'heartstone',
-    'hok',
-    'hots',
-    'ice-hockey',
-    'kabaddi',
-    'legends',
-    'lol',
-    'mma',
-    'motorsport',
-    'ow',
-    'politics',
-    'pubg',
-    'rainbow6',
-    'rocket-league',
-    'rocket-league-bot',
-    'rugby',
-    'skiing-race',
-    'snooker',
-    'starcraft2',
-    'table-tennis',
-    'table-tennis-bot',
-    'tennis',
-    'tennis-bot',
-    'valorant',
-    'volleyball',
-    'warcraft3',
-    'water-polo',
-    'cash',
-    'cross',
-    'percent',
-    'stars'
-  ]
-
-__link-variable: &linkArray
-  - *linkLabel
-  - *linkUrl
-  - *linkTargetBlank
-__project-icon: &projectIcon
-  name: icon
-  label: Icon
-  widget: select
-  required: false
-  options: *iconOptions
-__dynamic-page-url: &dynamicPageIdentity
-  name: pageIdentity
-  label: Page Identity (setting)
-  hint: Page Identity is the part of page URL. It can include lowercase alphanumeric
-    characters (a-z, 0-9) and hyphens (-). For example - "dynamic-page-1"
-  widget: string
-__social-icons: &socialIcons ['twitter', 'facebook', 'google', 'twitch', 'steam', 'telegram', 'instagram', 'youtube']
-__page-meta: &pageMeta
-  name: pageMeta
-  label: Page Meta
-  widget: object
-  collapsed: true
-  fields:
-    - name: title
-      label: Page Title
-      widget: string
-      required: false
-    - name: description
-      label: Page Description
-      widget: text
-      required: false
-__page-meta-with-seo: &pageMetaWithSeo
-  name: pageMeta
-  label: Page Meta
-  widget: object
-  collapsed: true
-  fields:
-    - name: title
-      label: Page Title
-      widget: string
-      required: false
-    - name: description
-      label: Page Description
-      widget: text
-      required: false
-    - name: image
-      label: Image
-      widget: image
-      required: false
-    - name: seoText
-      label: Page Seo Text
-      widget: object
-      fields:
-        - name: visible
-          label: Visible Text
-          widget: markdown
-          required: false
-        - name: hidden
-          label: Hidden Text
-          widget: markdown
-          required: false
-        - name: button
-          label: More Button Label
-          widget: string
-          required: false
+backend:
+  name: proxy
 
 collections:
-  - name: globalComponents
-    label: Global Components
+  - name: mock
+    label: Mock
     extension: json
     format: json
     editor:
       preview: false
     files:
-      - label: Promotions Component
-        name: promotions
+      - label: Asd
+        name: qwe
         file: content/global-components/promotions.json
         fields:
           - name: label
             label: Block Label
             widget: string
-          - *projectIcon
           - name: items
             label: Cards
             widget: list
@@ -251,7 +43,3 @@ collections:
               - name: buttonLabel
                 label: Button Label
                 widget: string
-              - name: link
-                label: Link
-                widget: object
-                fields: *linkArray
